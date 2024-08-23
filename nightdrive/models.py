@@ -24,8 +24,9 @@ class AudioFile(Model):
             self.id = int(elements[2].split(" ")[0])
 
 class MergedFile(Model):
-    def __init__(self, track: Track, file: AudioFile, list_size: int, album_cover: str|None = None) -> None:
+    def __init__(self, track: Track, file: AudioFile, list_size: int, output_path: str, album_cover: str|None = None) -> None:
         self.path: str = file.path + "/" + file.file_name
+        self.output_path: str = output_path
         self.file_name: str = file.file_name
         self.interpret: str = track.interpret
         self.album: str = file.album
@@ -38,5 +39,5 @@ class MergedFile(Model):
         metadata: str = f'-metadata title="{self.title}" -metadata author="{self.interpret}" -metadata album="{self.album}" -metadata track={self.id}/{self.track_count} -metadata artist="Skeler" -metadata genre="Phonk/Wave"'
         album_cover: str = f''
         if self.album_cover:
-            album_cover = f'-i {self.album_cover} -c copy -disposition:v attached_pic'
-        return f'ffmpeg.exe -i "{self.path}" {album_cover} {metadata} "output/{self.file_name}"'
+            album_cover = f'-i {self.album_cover} -disposition:v attached_pic'
+        return f'ffmpeg.exe -i "{self.path}" {album_cover} -c copy {metadata} "{self.output_path}/{self.file_name}"'

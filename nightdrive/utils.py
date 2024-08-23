@@ -18,11 +18,11 @@ def get_files(path: str) -> list[AudioFile]:
         files.append(AudioFile(file, path))
     return files
 
-def merge_lists(tracklist: list[Track], fileslist: list[AudioFile], album_cover: str|None = None):
+def merge_lists(tracklist: list[Track], fileslist: list[AudioFile], output_path: str, album_cover: str|None = None):
     merged_files: list[MergedFile] = []
     for index, track in enumerate(tracklist):
         audiofile: AudioFile = fileslist[index]
         if (audiofile.id is None):
             continue
-        merged_files.append(MergedFile(track, audiofile, len(tracklist), album_cover))
+        merged_files.append(MergedFile(track, audiofile, len(tracklist), output_path, album_cover))
     return merged_files
