@@ -25,7 +25,7 @@ class AudioFile(Model):
 
 class MergedFile(Model):
     def __init__(self, track: Track, file: AudioFile, list_size: int, album_cover: str|None = None) -> None:
-        self.path: str = file.path + "\\" + file.file_name
+        self.path: str = file.path + "/" + file.file_name
         self.file_name: str = file.file_name
         self.interpret: str = track.interpret
         self.album: str = file.album
