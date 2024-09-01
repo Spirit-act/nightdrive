@@ -6,6 +6,7 @@
 - Tracklist
 - Python >= 3.8
 - ffmpeg
+- yt-dlp
 
 ## Download the Audio Files
 
